@@ -19,61 +19,6 @@
     overflow: hidden;
   }
 
-  .bubble-wrap {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100vw;
-    height: 100vh;
-  }
-
-  .bubble {
-    position: relative;
-    background: #fff;
-    border: 4px solid #000;
-    /* Pixel/chunky border via box-shadow to simulate pixel corners */
-    image-rendering: pixelated;
-    padding: 18px 28px;
-    max-width: 90vw;
-    /* Pixel bubble shape using clip-path isn't great for dynamic text,
-       so we use a CSS pixel-art border trick with outline + box-shadow */
-    box-shadow:
-      /* Pixel corner cutouts (top-left, top-right, bottom-left, bottom-right) */
-      -4px -4px 0 0 #fff,
-      4px -4px 0 0 #fff,
-      -4px 4px 0 0 #fff,
-      4px 4px 0 0 #fff,
-      /* Outer border redrawn without corners */
-      0 -8px 0 0 #000,
-      0 8px 0 0 #000,
-      -8px 0 0 0 #000,
-      8px 0 0 0 #000;
-  }
-
-  .bubble::after {
-    /* Pixel tail pointing down-right */
-    content: '';
-    position: absolute;
-    bottom: -20px;
-    right: 32px;
-    width: 12px;
-    height: 16px;
-    background: #000;
-    clip-path: polygon(0 0, 100% 0, 100% 100%);
-  }
-
-  .bubble::before {
-    content: '';
-    position: absolute;
-    bottom: -14px;
-    right: 36px;
-    width: 8px;
-    height: 12px;
-    background: #fff;
-    clip-path: polygon(0 0, 100% 0, 100% 100%);
-    z-index: 1;
-  }
-
   .bubble-text {
     font-family: 'Press Start 2P', monospace;
     font-size: clamp(10px, 2.5vw, 18px);
@@ -82,21 +27,14 @@
     line-height: 1.8;
     text-transform: uppercase;
     white-space: nowrap;
-    word-break: break-word;
     text-rendering: optimizeSpeed;
-    image-rendering: pixelated;
   }
 </style>
 </head>
 <body>
-<div class="bubble-wrap">
-  <div class="bubble">
-    <span class="bubble-text" id="msg">I WANT TO BE A CAT</span>
-  </div>
-</div>
+  <span class="bubble-text" id="msg">I WANT TO BE A CAT</span>
 
 <script>
-  // Read ?text= param from URL and set the bubble message
   function getParam(name) {
     const url = new URL(window.location.href);
     return url.searchParams.get(name);
